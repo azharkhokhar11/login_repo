@@ -24,6 +24,7 @@ class AuthController extends Controller
         $user = User::firstWhere('email',$request->email);
         $token = $user->createToken('access-token')->plainTextToken;
         return (new UserResource($user))->additional([
+            'message' => 'user login successfully',
             'token' => $token,
         ]);   
     }

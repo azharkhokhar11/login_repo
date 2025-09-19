@@ -35,7 +35,10 @@ class UsersController extends Controller
         $data = $request->validated();
         $data['password'] = Hash::make($data['password']);
         $user = User::create($data);
-        return new UserResource($user);
+        return (new UserResource($user))->additional([
+        'success' => true,
+        'message' => 'User registered successfully'
+    ]);
     }
 
     /**
@@ -66,7 +69,10 @@ class UsersController extends Controller
             unset($data['password']);
         }
         $user = $user->update($data);
-        return new UserResource($user);
+        return (new UserResource($user))->additional([
+            'success' => true,
+            'message' => 'User updated successfully'
+        ]);
     }
 
     /**
